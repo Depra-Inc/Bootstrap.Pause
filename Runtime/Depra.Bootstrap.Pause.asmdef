@@ -1,0 +1,22 @@
+{
+    "name": "Depra.Bootstrap.Pause",
+    "rootNamespace": "Depra.Bootstrap.Pause",
+    "references": [
+        "GUID:f2d29a2229cbe644c8b4d8c0ae31aaba",
+        "GUID:511a5d938b5c8d540ad37bfcd2059f6e",
+        "GUID:5c3cbf54bce652248b5d0c693909f476"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Depra.Pause.dll",
+        "Depra.IoC.dll",
+        "Depra.IoC.QoL.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
