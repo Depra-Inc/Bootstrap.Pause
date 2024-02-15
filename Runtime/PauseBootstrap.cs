@@ -16,7 +16,7 @@ namespace Client.Bootstrap
 	{
 		[SubtypeDropdown] [SerializeReference] private IPauseListener[] _listeners;
 
-		void IBootstrapElement.PreInitialize(IContainerBuilder container)
+		void IBootstrapElement.InstallBindings(IContainerBuilder container)
 		{
 			var listeners = new List<IPauseListener>(_listeners);
 			listeners.AddRange(GetComponents<IPauseListener>());
