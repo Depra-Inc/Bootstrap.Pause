@@ -24,7 +24,7 @@ namespace Client.Bootstrap
 
 			var listeners = new List<IPauseListener>(_listeners);
 			listeners.AddRange(GetComponents<IPauseListener>());
-			container.RegisterSingleton<IEnumerable<IPauseListener>>(listeners);
+			container.RegisterSingleton(listeners.ToArray());
 
 			container.RegisterSingleton<IPauseService, PauseService>();
 		}
