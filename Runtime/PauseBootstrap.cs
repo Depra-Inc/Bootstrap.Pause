@@ -32,7 +32,11 @@ namespace Client.Bootstrap
 		void IBootstrapElement.Initialize(IScope scope)
 		{
 			// TODO: Replace initialization with NonLazy.
-			scope.Resolve<IPauseService>();
+			var service = scope.Resolve<IPauseService>();
+			foreach (var input in _inputs)
+			{
+				input.Initialize(service);
+			}
 		}
 	}
 }
