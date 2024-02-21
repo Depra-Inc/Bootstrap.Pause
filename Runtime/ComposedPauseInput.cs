@@ -1,4 +1,7 @@
-﻿using System;
+﻿// SPDX-License-Identifier: Apache-2.0
+// © 2024 Nikolay Melnikov <n.melnikov@depra.org>
+
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Depra.Pause;
