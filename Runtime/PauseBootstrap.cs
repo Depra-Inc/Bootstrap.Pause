@@ -14,14 +14,18 @@ namespace Client.Bootstrap
 	[DisallowMultipleComponent]
 	public sealed class PauseBootstrap : MonoBehaviour, IBootstrapElement
 	{
+		[SerializeField] private ScenePauseInput[] _inputs;
 		[SubtypeDropdown] [SerializeReference] private IPauseListener[] _listeners;
 
 		void IBootstrapElement.InstallBindings(IContainerBuilder container)
 		{
+			var input = new ComposedPauseInput(_inputs);
+			container.RegisterSingleton<IPauseInput>(input);
+
 			var listeners = new List<IPauseListener>(_listeners);
 			listeners.AddRange(GetComponents<IPauseListener>());
-			container.RegisterSingleton(listeners.ToArray());
-			container.RegisterSingleton(GetComponent<IPauseInput>());
+			container.RegisterSingleton<IEnumerable<IPauseListener>>(listeners);
+
 			container.RegisterSingleton<IPauseService, PauseService>();
 		}
 
