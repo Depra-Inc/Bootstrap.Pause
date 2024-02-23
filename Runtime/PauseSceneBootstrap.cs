@@ -8,17 +8,17 @@ using UnityEngine;
 
 namespace Depra.Bootstrap.Pause
 {
+	[DisallowMultipleComponent]
 	public sealed class PauseSceneBootstrap : SceneBootstrap
 	{
 		[SerializeField] private List<ScenePauseInput> _inputs;
+		[SerializeField] private List<ScenePauseListener> _listeners;
 
 		private IPauseService _service;
-		private IPauseListener[] _listeners;
 
 		public override void Initialize(IScope scope)
 		{
 			_service = scope.Resolve<IPauseService>();
-			_listeners = GetComponents<IPauseListener>();
 			_service.AddRange(_listeners);
 
 			foreach (var input in _inputs)
