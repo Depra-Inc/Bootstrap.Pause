@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// SPDX-License-Identifier: Apache-2.0
+// © 2024 Nikolay Melnikov <n.melnikov@depra.org>
+
+using System.Collections.Generic;
 using Depra.IoC.Scope;
 using Depra.Pause;
 using UnityEngine;
@@ -10,11 +13,13 @@ namespace Depra.Bootstrap.Pause
 		[SerializeField] private List<ScenePauseInput> _inputs;
 
 		private IPauseService _service;
+		private IPauseListener[] _listeners;
 
 		public override void Initialize(IScope scope)
 		{
 			_service = scope.Resolve<IPauseService>();
-			_service.AddRange(GetComponents<IPauseListener>());
+			_listeners = GetComponents<IPauseListener>();
+			_service.AddRange(_listeners);
 
 			foreach (var input in _inputs)
 			{
@@ -23,10 +28,10 @@ namespace Depra.Bootstrap.Pause
 			}
 		}
 
-		private void OnDestroy()
+		public override void TearDown()
 		{
 			_service?.RemoveRange(_inputs);
-			_service?.RemoveRange(GetComponents<IPauseListener>());
+			_service?.RemoveRange(_listeners);
 		}
 	}
 }

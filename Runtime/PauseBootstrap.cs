@@ -4,18 +4,18 @@
 using System.Collections.Generic;
 using Depra.Inspector.SerializedReference;
 using Depra.IoC.QoL.Builder;
-using Depra.IoC.Scope;
+using Depra.IoC.QoL.Composition;
 using Depra.Pause;
 using UnityEngine;
 
 namespace Depra.Bootstrap.Pause
 {
 	[DisallowMultipleComponent]
-	public sealed class PauseBootstrap : MonoBehaviour, IBootstrapElement
+	public sealed class PauseBootstrap : MonoBehaviour, IInstaller
 	{
 		[SubtypeDropdown] [SerializeReference] private IPauseListener[] _listeners;
 
-		void IBootstrapElement.InstallBindings(IContainerBuilder container)
+		void IInstaller.Install(IContainerBuilder container)
 		{
 			var inputs = new List<IPauseInput>(GetComponents<IPauseInput>());
 			container.RegisterSingleton(inputs);
@@ -24,7 +24,5 @@ namespace Depra.Bootstrap.Pause
 			container.RegisterSingleton(listeners);
 			container.RegisterSingleton<IPauseService, PauseService>();
 		}
-
-		void IBootstrapElement.Initialize(IScope scope) { }
 	}
 }
