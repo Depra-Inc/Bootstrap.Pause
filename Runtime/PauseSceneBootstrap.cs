@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Depra.Bootstrap.Pause
 {
 	[DisallowMultipleComponent]
-	public sealed class PauseSceneBootstrap : SceneBootstrap
+	public sealed class PauseSceneBootstrap : SceneBootstrapElement
 	{
 		[SerializeField] private List<ScenePauseInput> _inputs;
 		[SerializeField] private List<ScenePauseListener> _listeners;
