@@ -2,10 +2,10 @@
 // © 2024 Nikolay Melnikov <n.melnikov@depra.org>
 
 using System.Collections.Generic;
-using Depra.Inspector.SerializedReference;
 using Depra.IoC.QoL.Builder;
 using Depra.IoC.QoL.Composition;
 using Depra.Pause;
+using Depra.SerializeReference.Extensions;
 using UnityEngine;
 
 namespace Depra.Bootstrap.Pause
@@ -13,7 +13,9 @@ namespace Depra.Bootstrap.Pause
 	[DisallowMultipleComponent]
 	public sealed class PauseBootstrap : MonoBehaviour, IInstaller
 	{
-		[SubtypeDropdown] [SerializeReference] private IPauseListener[] _listeners;
+		[SerializeReferenceDropdown]
+		[UnityEngine.SerializeReference]
+		private IPauseListener[] _listeners;
 
 		void IInstaller.Install(IContainerBuilder container)
 		{
