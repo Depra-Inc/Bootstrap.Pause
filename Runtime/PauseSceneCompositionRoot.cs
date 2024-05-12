@@ -2,6 +2,7 @@
 // © 2024 Nikolay Melnikov <n.melnikov@depra.org>
 
 using System.Collections.Generic;
+using Depra.Bootstrap.Scenes;
 using Depra.IoC.Scope;
 using Depra.Pause;
 using UnityEngine;
@@ -9,14 +10,14 @@ using UnityEngine;
 namespace Depra.Bootstrap.Pause
 {
 	[DisallowMultipleComponent]
-	public sealed class PauseSceneBootstrap : SceneBootstrapElement
+	public sealed class PauseSceneCompositionRoot : SceneCompositionRoot
 	{
 		[SerializeField] private List<ScenePauseInput> _inputs;
 		[SerializeField] private List<ScenePauseListener> _listeners;
 
 		private IPauseService _service;
 
-		public override void Initialize(IScope scope)
+		public override void Compose(IScope scope)
 		{
 			_service = scope.Resolve<IPauseService>();
 			_service.AddRange(_listeners);
@@ -28,7 +29,7 @@ namespace Depra.Bootstrap.Pause
 			}
 		}
 
-		public override void TearDown()
+		public override void Release()
 		{
 			_service?.RemoveRange(_inputs);
 			_service?.RemoveRange(_listeners);

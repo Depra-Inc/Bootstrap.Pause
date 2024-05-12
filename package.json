@@ -1,13 +1,13 @@
 {
 	"name": "com.depra.bootstrap.pause",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"displayName": "Depra.Bootstrap.Pause",
 	"description": "",
 	"unity": "2022.3",
 	"license": "Apache-2.0",
 	"dependencies": {
 		"com.depra.pause.unity": "0.0.9",
-		"com.depra.bootstrap.unity": "0.1.5",
+		"com.depra.bootstrap.unity": "0.2.2",
 		"com.depra.serialize-reference.extensions": "0.0.10"
 	},
 	"keywords": [

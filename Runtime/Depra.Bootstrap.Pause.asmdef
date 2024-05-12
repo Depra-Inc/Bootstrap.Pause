@@ -13,7 +13,8 @@
     "precompiledReferences": [
         "Depra.Pause.dll",
         "Depra.IoC.dll",
-        "Depra.IoC.QoL.dll"
+        "Depra.IoC.QoL.dll",
+        "Depra.IoC.Composition.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

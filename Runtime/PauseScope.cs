@@ -2,8 +2,8 @@
 // © 2024 Nikolay Melnikov <n.melnikov@depra.org>
 
 using System.Collections.Generic;
+using Depra.IoC.Composition;
 using Depra.IoC.QoL.Builder;
-using Depra.IoC.QoL.Composition;
 using Depra.Pause;
 using Depra.SerializeReference.Extensions;
 using UnityEngine;
@@ -11,20 +11,22 @@ using UnityEngine;
 namespace Depra.Bootstrap.Pause
 {
 	[DisallowMultipleComponent]
-	public sealed class PauseBootstrap : MonoBehaviour, IInstaller
+	public sealed class PauseScope : MonoBehaviour, ILifetimeScope
 	{
 		[SerializeReferenceDropdown]
 		[UnityEngine.SerializeReference]
 		private IPauseListener[] _listeners;
 
-		void IInstaller.Install(IContainerBuilder container)
+		void ILifetimeScope.Configure(IContainerBuilder container)
 		{
 			var inputs = new List<IPauseInput>(GetComponents<IPauseInput>());
-			container.RegisterSingleton(inputs);
 			var listeners = new List<IPauseListener>(_listeners);
 			listeners.AddRange(GetComponents<IPauseListener>());
-			container.RegisterSingleton(listeners);
-			container.RegisterSingleton<IPauseService, PauseService>();
+
+			container
+				.RegisterSingleton(inputs)
+				.RegisterSingleton(listeners)
+				.RegisterSingleton<IPauseService, PauseService>();
 		}
 	}
 }
