@@ -2,31 +2,29 @@
 // © 2024 Nikolay Melnikov <n.melnikov@depra.org>
 
 using System.Collections.Generic;
-using Depra.IoC.Composition;
+using Depra.Bootstrap.Project;
 using Depra.IoC.QoL.Builder;
 using Depra.Pause;
 using Depra.SerializeReference.Extensions;
 using UnityEngine;
+using static Depra.Bootstrap.Pause.Module;
 
 namespace Depra.Bootstrap.Pause
 {
-	[DisallowMultipleComponent]
-	public sealed class PauseScope : MonoBehaviour, ILifetimeScope
+	[CreateAssetMenu(menuName = MENU_PATH + nameof(ProjectScope), fileName = nameof(PauseScope), order = DEFAULT_ORDER)]
+	public sealed class PauseScope : ProjectScope
 	{
 		[SerializeReferenceDropdown]
 		[UnityEngine.SerializeReference]
-		private IPauseListener[] _listeners;
+		private List<IPauseInput> _inputs;
 
-		void ILifetimeScope.Configure(IContainerBuilder container)
-		{
-			var inputs = new List<IPauseInput>(GetComponents<IPauseInput>());
-			var listeners = new List<IPauseListener>(_listeners);
-			listeners.AddRange(GetComponents<IPauseListener>());
+		[SerializeReferenceDropdown]
+		[UnityEngine.SerializeReference]
+		private List<IPauseListener> _listeners;
 
-			container
-				.RegisterSingleton(inputs)
-				.RegisterSingleton(listeners)
-				.RegisterSingleton<IPauseService, PauseService>();
-		}
+		public override void Configure(IContainerBuilder builder) => builder
+			.RegisterSingleton(_inputs)
+			.RegisterSingleton(_listeners)
+			.RegisterSingleton<IPauseService, PauseService>();
 	}
 }
