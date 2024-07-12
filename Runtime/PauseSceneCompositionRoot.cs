@@ -2,7 +2,7 @@
 // © 2024 Nikolay Melnikov <n.melnikov@depra.org>
 
 using System.Collections.Generic;
-using Depra.Bootstrap.Scene;
+using Depra.Bootstrap.Scenes;
 using Depra.IoC.Scope;
 using Depra.Pause;
 using UnityEngine;
