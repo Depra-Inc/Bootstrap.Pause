@@ -23,10 +23,10 @@ namespace Depra.Bootstrap.Pause
 		private List<IPauseListener> _listeners;
 
 		void ILifetimeScope.Configure(IContainerBuilder builder) => builder
-			.RegisterSingleton(_inputs)
-			.RegisterSingleton(_listeners)
 			.RegisterSingleton<PauseInput>()
 			.RegisterSingleton<PauseNotifications>()
-			.RegisterSingleton<IPauseState, PauseState>();
+			.RegisterSingleton<IPauseState, PauseState>()
+			.RegisterSingleton<IEnumerable<IPauseInputSource>>(_inputs)
+			.RegisterSingleton<IEnumerable<IPauseListener>>(_listeners);
 	}
 }
