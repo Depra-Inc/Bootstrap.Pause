@@ -16,7 +16,7 @@ namespace Depra.Bootstrap.Pause
 	{
 		[SerializeReferenceDropdown]
 		[UnityEngine.SerializeReference]
-		private List<IPauseInput> _inputs;
+		private List<IPauseInputSource> _inputs;
 
 		[SerializeReferenceDropdown]
 		[UnityEngine.SerializeReference]
@@ -25,6 +25,8 @@ namespace Depra.Bootstrap.Pause
 		void ILifetimeScope.Configure(IContainerBuilder builder) => builder
 			.RegisterSingleton(_inputs)
 			.RegisterSingleton(_listeners)
-			.RegisterSingleton<IPauseService, PauseService>();
+			.RegisterSingleton<PauseInput>()
+			.RegisterSingleton<PauseNotifications>()
+			.RegisterSingleton<IPauseState, PauseState>();
 	}
 }
